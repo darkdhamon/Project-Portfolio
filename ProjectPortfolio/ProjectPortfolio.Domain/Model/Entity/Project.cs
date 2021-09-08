@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectPortfolio.Domain.Model.Entity.Abstract;
+﻿using ProjectPortfolio.Domain.Model.Entity.Abstract;
 
 namespace ProjectPortfolio.Domain.Model.Entity
 {
@@ -11,5 +6,7 @@ namespace ProjectPortfolio.Domain.Model.Entity
     {
         public string Title { get; set; }
         public string Description { get; set; }
+        public bool Featured { get; set; }
+        public bool Hide { get; set; }
     }
 }

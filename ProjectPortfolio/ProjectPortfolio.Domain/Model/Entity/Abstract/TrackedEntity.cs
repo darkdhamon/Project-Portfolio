@@ -1,12 +1,14 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using DarkDhamon.Common.DataRepository;
 
 namespace ProjectPortfolio.Domain.Model.Entity.Abstract
 {
-    public abstract class TrackedEntity : BaseEntity, ITrackedEntity<int, UserProfile>
+    public abstract class TrackedEntity : BaseEntity, ITrackedEntity<int, AppUser>
     {
         private DateTime _created;
 
+        [Required]
         public DateTime Created
         {
             get => 
@@ -18,8 +20,9 @@ namespace ProjectPortfolio.Domain.Model.Entity.Abstract
 
         public DateTime? Updated { get; set; }
         public DateTime? Deleted { get; set; }
-        public UserProfile CreatedBy { get; set; }
-        public UserProfile LastUpdatedBy { get; set; }
-        public UserProfile DeletedBy { get; set; }
+        [Required]
+        public virtual AppUser CreatedBy { get; set; }
+        public virtual AppUser LastUpdatedBy { get; set; }
+        public virtual AppUser DeletedBy { get; set; }
     }
 }

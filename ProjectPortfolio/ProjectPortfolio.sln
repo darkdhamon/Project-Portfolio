@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPortfolio.Net5", "ProjectPortfolio.Net5\ProjectPortfolio.Net5.csproj", "{28231A5E-2454-444D-9169-E0A2DD8E45BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectPortfolio.Net5", "ProjectPortfolio.Net5\ProjectPortfolio.Net5.csproj", "{28231A5E-2454-444D-9169-E0A2DD8E45BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPortfolio.Domain", "ProjectPortfolio.Domain\ProjectPortfolio.Domain.csproj", "{939B401C-AA10-47C7-B1CC-FD343428A39F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectPortfolio.Domain", "ProjectPortfolio.Domain\ProjectPortfolio.Domain.csproj", "{939B401C-AA10-47C7-B1CC-FD343428A39F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DarkDhamon.Common", "..\..\DarkDhamon.Common\DarkDhamon.Common\DarkDhamon.Common.csproj", "{F0156266-F5E0-485C-9D3C-F018C0BF1221}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPortfolio.Net5.MVC", "ProjectPortfolio.Net5.MVC\ProjectPortfolio.Net5.MVC.csproj", "{9BBA60CB-3DA9-41EB-9ADF-CFFB6DDDDEB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F0156266-F5E0-485C-9D3C-F018C0BF1221}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0156266-F5E0-485C-9D3C-F018C0BF1221}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0156266-F5E0-485C-9D3C-F018C0BF1221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BBA60CB-3DA9-41EB-9ADF-CFFB6DDDDEB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BBA60CB-3DA9-41EB-9ADF-CFFB6DDDDEB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BBA60CB-3DA9-41EB-9ADF-CFFB6DDDDEB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BBA60CB-3DA9-41EB-9ADF-CFFB6DDDDEB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

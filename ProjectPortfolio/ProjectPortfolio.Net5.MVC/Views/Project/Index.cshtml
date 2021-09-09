@@ -1,8 +1,26 @@
-﻿@model IEnumerable<ProjectPortfolio.Domain.Model.Business.ProjectListItem>
+﻿@model DarkDhamon.Common.API.Models.PagedApiResponse<ProjectPortfolio.Domain.Model.Business.ProjectListItem>
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Project List";
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<h2>Project List</h2>
+<div class="row">
+    <div class="col">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>Title</td>
+                <td>Created</td>
+                <td>Featured</td>
+                <td>Actions</td>
+            </tr>
+            </thead>
+            <tbody>
+            <partial name="_ProjectTableList" model="Model.Data"/>
+            </tbody>
+        </table>
+        
+    </div>
+</div>

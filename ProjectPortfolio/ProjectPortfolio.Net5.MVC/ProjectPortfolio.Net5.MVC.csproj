@@ -20,7 +20,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Project\" />
     <Folder Include="Pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="C:\Users\bronz_aneglrb\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\css\bootstrap.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\bronz_aneglrb\.nuget\packages\bootstrap\5.1.0\contentFiles\any\any\wwwroot\js\bootstrap.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

@@ -24,7 +24,7 @@ namespace ProjectPortfolio.Domain.Repository.Entity
         public async Task<IEnumerable<ProjectListItem>> GetPagedProjectListAsync(int page = 1, int entriesPerPage = 10)
         {
             var projects = ProjectsByMostRecent;
-            var entriesToSkip = page - 1 * entriesPerPage;
+            var entriesToSkip = (page - 1) * entriesPerPage;
             var currentPage = projects
                 .Skip(entriesToSkip)
                 .Take(entriesPerPage);
@@ -35,6 +35,13 @@ namespace ProjectPortfolio.Domain.Repository.Entity
                 Featured = project.Featured,
                 Created = project.Created,
             }).ToListAsync();
+        }
+
+        public async Task<int> GetNumberOfPagesAsync(int entriesPerPage=10)
+        {
+            var displayedProjectCount = await DisplayedProjects.CountAsync();
+            var pages = displayedProjectCount / entriesPerPage + (displayedProjectCount % entriesPerPage)>0?1:0;
+            return pages;
         }
     }
 }

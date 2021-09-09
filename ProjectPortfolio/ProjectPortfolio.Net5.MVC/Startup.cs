@@ -33,10 +33,10 @@ namespace ProjectPortfolio.Net5.MVC
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole<int>>()
                 .AddEntityFrameworkStores<ProjectPortfolioContext>();
+            ConfigureRepositories(services);
             services.AddControllersWithViews();
         }
 

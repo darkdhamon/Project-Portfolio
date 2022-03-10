@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section sideNav
+{
+    @{
+        var active = "active";
+        var index =   (string) ViewContext.RouteData.Values["action"]=="Index";
+        var resume =   (string) ViewContext.RouteData.Values["action"]== "Resume";
+        var preferences =  (string) ViewContext.RouteData.Values["action"]== "Preferences";
+    }
+
+<div class="nav flex-column nav-pills side-nav" role="tablist" aria-orientation="vertical">
+    @Html.ActionLink("About Me", "Index", "About", null, new
+    {
+        @class = $"nav-link {(index ? active : "")}"
+    })
+    @Html.ActionLink("Resume", "Resume", "About", null, new
+    {
+        @class = $"nav-link {(resume ? active : "")}"
+    })
+    @Html.ActionLink("Job Preferences", "Preferences", "About", null, new
+    {
+        @class = $"nav-link {(preferences ? active : "")}"
+    })
+    <a class="nav-link" href="https://www.linkedin.com/in/bronzeharoldbrown/" target="_blank"><i class="fa fa-linkedin-square"></i> LinkedIn</a>
+    <a class="nav-link" href="https://www.facebook.com/darkdhamon" target="_blank"><i class="fa fa-facebook-square"></i> Facebook</a>
+</div>
+}
+
+@RenderBody()
+

@@ -1,0 +1,16 @@
+<h1>Welcome Seeker,</h1>
+<p>[[Placeholder Intro]]</p>
+
+<ngb-carousel #FeaturedCarousel [interval]="5000" [pauseOnHover]="true" [pauseOnFocus]="true" (slide)="onSlide($event)">
+  <ng-template ngbSlide *ngFor="let project of projectSlides">
+    <div class="carousel-caption">
+      <h3>{{project.name}}</h3>
+      <p>{{project.shortDescription}}</p>
+    </div>
+    <a [routerLink]="['/project', project.id]">
+      <div class="picsum-img-wrapper">
+        <img [src]="project.imageDataUrl" [alt]="project.name" width="100%">
+      </div>
+    </a>
+  </ng-template>
+</ngb-carousel>

@@ -1,0 +1,16 @@
+<div class="d-flex justify-content-start">
+  <h5 class="p-2 align-self-center">
+  {{project.name}}
+    <span class="small">({{displayDates()}})</span>
+  </h5>
+  <div class="p-2 ml-auto align-self-center">
+    <a *ngIf="project.demoUrl" class="btn btn-sm btn-outline-dark" [attr.href]="project.demoUrl" placement="top" ngbTooltip="Demo">
+      <fa-icon size="2x" [icon]="faPlayCircle"></fa-icon>
+    </a>
+    <a *ngIf="project.sourceUrl" class="btn btn-sm btn-outline-dark" [attr.href]="project.sourceUrl" placement="top" ngbTooltip="Source Code">
+      <fa-icon size="2x" [icon]="faGithub"></fa-icon>
+    </a>
+  </div>
+</div>
+<img class="main-image" [src]="project.imageDataUrl" />
+<div [innerHTML]="project.description"></div>

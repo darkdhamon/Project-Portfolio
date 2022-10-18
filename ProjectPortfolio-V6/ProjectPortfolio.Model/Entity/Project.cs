@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DarkDhamon.Common.EntityFramework.Model;
 
 namespace ProjectPortfolio.Model.Entity
 {
-    public class Project : IEntity
+    public class Project : IEntity<int>
     {
+        public int Id { get; set; }
     }
 }

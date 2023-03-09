@@ -64,11 +64,14 @@ namespace ProjectPortfolio.MVC
 
         private static void SetupDatabaseConnections(IServiceCollection services)
         {
-            var defaultConnectionString = Configuration.GetConnectionString("DefaultConnection")
+            var identityConnectionString = Configuration.GetConnectionString("MSIdentityConnection")
+                                          ?? throw new InvalidOperationException(
+                                              "Connection string 'MSIdentityConnection' not found.");
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(identityConnectionString));
+            var defaultConnectionString = Configuration.GetConnectionString("MSIdentityConnection")
                                           ?? throw new InvalidOperationException(
                                               "Connection string 'DefaultConnection' not found.");
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(defaultConnectionString));
             services.AddDbContext<PortfolioContext>(options => options.UseSqlServer(defaultConnectionString));
         }
     }

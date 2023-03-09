@@ -58,13 +58,19 @@ namespace ProjectPortfolio.MVC
         {
             SetupDatabaseConnections(services);
 
-            services.AddTransient<IProjectRepository, ProjectRepository>();
+            SetupRepositories(services);
 
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             
+        }
+
+        private static void SetupRepositories(IServiceCollection services)
+        {
+            services.AddTransient<IProjectRepository, ProjectRepository>();
+            services.AddTransient<ITagRepository, TagRepository>();
         }
 
         private static void SetupDatabaseConnections(IServiceCollection services)
@@ -77,15 +83,15 @@ namespace ProjectPortfolio.MVC
             
             identityConnectionBuilder.Password = Configuration[$"UserPass:{identityConnectionBuilder.UserID}"];
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(identityConnectionString));
+                options.UseSqlServer(identityConnectionBuilder.ConnectionString));
 
             var defaultConnectionString = Configuration.GetConnectionString("DefaultConnection")
                                           ?? throw new InvalidOperationException(
                                               "Connection string 'DefaultConnection' not found.");
             var defaultConnectionBuilder = new SqlConnectionStringBuilder(defaultConnectionString);
             defaultConnectionBuilder.Password = Configuration[$"UserPass:{defaultConnectionBuilder.UserID}"];
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(identityConnectionString));
+            services.AddDbContext<PortfolioContext>(options =>
+                options.UseSqlServer(defaultConnectionBuilder.ConnectionString));
 
             services.AddDbContext<PortfolioContext>(options => options.UseSqlServer(defaultConnectionString));
         }

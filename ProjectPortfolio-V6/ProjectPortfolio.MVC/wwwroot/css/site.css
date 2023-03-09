@@ -1,3 +1,5 @@
+
+
 html {
   font-size: 14px;
 }
@@ -16,3 +18,10 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.construction-notice {
+    background: lightgoldenrodyellow;
+}
+    .construction-notice .card-header {
+        background: orange;
+    }

@@ -14,4 +14,5 @@ public class PortfolioContext: DbContext
 
     }
     public virtual DbSet<Project> Projects { get; set; }
+    public virtual DbSet<ProjectTag> ProjectTags { get; set; }
 }

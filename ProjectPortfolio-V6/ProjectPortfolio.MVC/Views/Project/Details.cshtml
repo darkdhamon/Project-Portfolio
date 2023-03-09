@@ -1,0 +1,32 @@
+﻿@model ProjectPortfolio.Model.Entity.Project
+
+@{
+    ViewBag.Title = $"Project: {Model.Title}";
+    Layout = "_Layout";
+}
+<div class="card">
+    <div class="card-header">
+        <span class="fw-bold">Project:</span> @Model.Title 
+        (@Model.StartDate.ToString("MMM yyyy") - @(Model.EndDate?.ToString("MMM yyyy")??"Ongoing Project"))
+        <a asp-action="Edit" asp-controller="Project" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+    </div>
+    <div class="card-body">
+        <div class="input-group mb-3">
+            <span class="input-group-text">Tags</span>
+            <span class="form-control">
+                @foreach (var tag in Model.Tags)
+                {
+                    <partial name="PageParts/_ProjectTag" model="tag"/>
+                }
+            </span>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Project Description
+            </div>
+            <div class="card-body">
+                @Html.Raw(Model.FormattedDescription)
+            </div>
+        </div>
+    </div>
+</div>

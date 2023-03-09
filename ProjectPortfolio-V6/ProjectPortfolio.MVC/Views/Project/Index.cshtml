@@ -1,0 +1,53 @@
+﻿@model System.Linq.IQueryable<ProjectPortfolio.MVC.Models.ProjectListItemViewModel>
+
+@{
+    ViewBag.Title = "Project List";
+    Layout = "_Layout";
+}
+<div class="card">
+    <div class="card-header">
+        Project List
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Project Title</th>
+                <th scope="col">Tags</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var project in Model)
+            {
+                <tr onclick="OpenProject(@project.Id)">
+                    <th scope="row">@project.Id</th>
+                    <td>@project.Title</td>
+                    <td>
+                        @foreach (var tag in project.Tags)
+                        {
+                            <partial name="PageParts/_ProjectTag" model="tag" />
+                        }
+                    </td>
+                    <td>@project.StartDate</td>
+                    <td>@project.EndDate</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script language="javascript">
+    
+        function OpenProject(projectId)
+        {
+            location.href = "@Url.Action("Details","Project")"+"/"+projectId
+        };
+
+    </script>
+}

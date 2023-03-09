@@ -1,8 +1,11 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ProjectPortfolio.Model.Data;
 using ProjectPortfolio.Model.Data.Repository;
 using ProjectPortfolio.MVC.Data;
+using ProjectPortfolio.MVC.Models;
 
 namespace ProjectPortfolio.MVC
 {
@@ -15,6 +18,7 @@ namespace ProjectPortfolio.MVC
             var builder = WebApplication.CreateBuilder(args);
 
             Configuration = builder.Configuration;
+            Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(),true);
 
             // Add services to the container.
             SetupServices(builder.Services);
@@ -59,19 +63,30 @@ namespace ProjectPortfolio.MVC
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            
         }
 
         private static void SetupDatabaseConnections(IServiceCollection services)
         {
+
             var identityConnectionString = Configuration.GetConnectionString("MSIdentityConnection")
-                                          ?? throw new InvalidOperationException(
-                                              "Connection string 'MSIdentityConnection' not found.");
+                                           ?? throw new InvalidOperationException(
+                                               "Connection string 'MSIdentityConnection' not found.");
+            var identityConnectionBuilder = new SqlConnectionStringBuilder(identityConnectionString);
+            
+            identityConnectionBuilder.Password = Configuration[$"UserPass:{identityConnectionBuilder.UserID}"];
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(identityConnectionString));
-            var defaultConnectionString = Configuration.GetConnectionString("MSIdentityConnection")
+
+            var defaultConnectionString = Configuration.GetConnectionString("DefaultConnection")
                                           ?? throw new InvalidOperationException(
                                               "Connection string 'DefaultConnection' not found.");
+            var defaultConnectionBuilder = new SqlConnectionStringBuilder(defaultConnectionString);
+            defaultConnectionBuilder.Password = Configuration[$"UserPass:{defaultConnectionBuilder.UserID}"];
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(identityConnectionString));
+
             services.AddDbContext<PortfolioContext>(options => options.UseSqlServer(defaultConnectionString));
         }
     }

@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+ProjectPortfolio-V6/ProjectPortfolio.MVC/UserSecrets.json
+ProjectPortfolio-V6/ProjectPortfolio.MVC/secrets.json

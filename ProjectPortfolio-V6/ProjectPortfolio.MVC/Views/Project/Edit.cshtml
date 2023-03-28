@@ -1,8 +1,70 @@
-﻿@model ProjectPortfolio.MVC.Controllers.EditProjectViewModel
+﻿@using ProjectPortfolio.Model.Entity
+@model ProjectPortfolio.MVC.Controllers.EditProjectViewModel
 
 @{
-    ViewBag.Title = $"Edit: {Model.Project?.Title}";
+    ViewBag.Title = $"Edit: {Model.Project.Title}";
     Layout = "_Layout";
 }
+<form asp-action="Edit" asp-controller="Project">
+<div class="card">
+    <div class="card-header">
+        Edit @Model.Project?.Title
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+            <label asp-for="Project.Title"></label>
+            <input asp-for="Project.Title"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Project.SourceLink"></label>
+            <input asp-for="Project.SourceLink"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Project.DemoLink"></label>
+            <input asp-for="Project.DemoLink"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Project.StartDate"></label>
+            <input asp-for="Project.StartDate"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Project.EndDate"></label>
+            <input asp-for="Project.EndDate"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Project.Tags"></label>
+            @foreach (var tag in Model.AvailableTags.OrderBy(tag=>tag.Name))
+            {
+                <input value="@tag.Id" type="checkbox" class="btn-check" id="projectTag-@tag.Id" autocomplete="off">
+                <label class="btn btn-sm btn-outline-primary" for="projectTag-@tag.Id">@tag.Name</label>
+            }
+            
 
-<h2>Edit @Model.Project?.Title</h2>
+
+            <div class="container mt-5">
+                <select asp-for="Project.Tags" asp-items="@(new SelectList(Model.AvailableTags,"Id", "Name", Model.Project.Tags.Select(pt=>pt.Id)))" class="selectpicker" multiple aria-label="size 3 select example">
+                </select>
+            </div>
+
+            </div>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a class="btn btn-outline-danger" asp-action="Details" asp-controller="Project" asp-route-id="@Model.Project?.Id">Cancel</a>
+    </div>
+</div>
+    
+    
+</form>
+@section Styles{
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+}
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('select').selectpicker();
+    </script>
+}

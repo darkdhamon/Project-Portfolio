@@ -65,8 +65,8 @@ namespace ProjectPortfolio.MVC.Controllers
         {
             var viewModel = new EditProjectViewModel
             {
-                AvailibleTags = TagRepository.All(),
-                Project = ProjectRepository.GetIncludeAllDetails(id)
+                AvailableTags = TagRepository.All(),
+                Project = ProjectRepository.GetIncludeAllDetails(id) ?? new Project()
             };
             return View(viewModel);
         }
@@ -78,7 +78,10 @@ namespace ProjectPortfolio.MVC.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var project = ProjectRepository.GetIncludeAllDetails(id);
+                project.Title = collection["Project.Title"];
+
+                return RedirectToAction(nameof(Details), new{id});
             }
             catch
             {
@@ -110,7 +113,7 @@ namespace ProjectPortfolio.MVC.Controllers
 
     public class EditProjectViewModel
     {
-        public IEnumerable<ProjectTag> AvailibleTags { get; set; }
-        public Project? Project { get; set; }
+        public IEnumerable<ProjectTag> AvailableTags { get; set; } = new List<ProjectTag>();
+        public Project Project { get; set; } = null!;
     }
 }

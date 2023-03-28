@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ProjectPortfolio.Model.Entity;
 
 #pragma warning disable CS8618
@@ -15,4 +14,9 @@ public class PortfolioContext: DbContext
     }
     public virtual DbSet<Project> Projects { get; set; }
     public virtual DbSet<ProjectTag> ProjectTags { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+    }
 }

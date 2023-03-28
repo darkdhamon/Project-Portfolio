@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectPortfolio.Model.Data;
 
@@ -11,9 +12,10 @@ using ProjectPortfolio.Model.Data;
 namespace ProjectPortfolio.Model.Migrations
 {
     [DbContext(typeof(PortfolioContext))]
-    partial class PortfolioContextModelSnapshot : ModelSnapshot
+    [Migration("20230328163531_AddImagesSourceAndDemoLinks")]
+    partial class AddImagesSourceAndDemoLinks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,7 +55,7 @@ namespace ProjectPortfolio.Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Project");
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("ProjectPortfolio.Model.Entity.ProjectImage", b =>
@@ -73,13 +75,18 @@ namespace ProjectPortfolio.Model.Migrations
                     b.Property<string>("ImageData")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Image");
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectImage");
                 });
 
             modelBuilder.Entity("ProjectPortfolio.Model.Entity.ProjectTag", b =>
@@ -94,69 +101,35 @@ namespace ProjectPortfolio.Model.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Tag");
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectTags");
                 });
 
-            modelBuilder.Entity("ProjectProjectImage", b =>
-                {
-                    b.Property<int>("ImagesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ImagesId", "ProjectsId");
-
-                    b.HasIndex("ProjectsId");
-
-                    b.ToTable("ProjectProjectImage");
-                });
-
-            modelBuilder.Entity("ProjectProjectTag", b =>
-                {
-                    b.Property<int>("ProjectsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProjectsId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("ProjectProjectTag");
-                });
-
-            modelBuilder.Entity("ProjectProjectImage", b =>
-                {
-                    b.HasOne("ProjectPortfolio.Model.Entity.ProjectImage", null)
-                        .WithMany()
-                        .HasForeignKey("ImagesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjectPortfolio.Model.Entity.Project", null)
-                        .WithMany()
-                        .HasForeignKey("ProjectsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ProjectProjectTag", b =>
+            modelBuilder.Entity("ProjectPortfolio.Model.Entity.ProjectImage", b =>
                 {
                     b.HasOne("ProjectPortfolio.Model.Entity.Project", null)
-                        .WithMany()
-                        .HasForeignKey("ProjectsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Images")
+                        .HasForeignKey("ProjectId");
+                });
 
-                    b.HasOne("ProjectPortfolio.Model.Entity.ProjectTag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("ProjectPortfolio.Model.Entity.ProjectTag", b =>
+                {
+                    b.HasOne("ProjectPortfolio.Model.Entity.Project", null)
+                        .WithMany("Tags")
+                        .HasForeignKey("ProjectId");
+                });
+
+            modelBuilder.Entity("ProjectPortfolio.Model.Entity.Project", b =>
+                {
+                    b.Navigation("Images");
+
+                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }

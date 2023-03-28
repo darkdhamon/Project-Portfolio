@@ -1,4 +1,5 @@
-﻿@model ProjectPortfolio.Model.Entity.Project
+﻿@using DarkDhamon.Common.Extensions
+@model ProjectPortfolio.Model.Entity.Project
 
 @{
     ViewBag.Title = $"Project: {Model.Title}";
@@ -20,12 +21,36 @@
                 }
             </span>
         </div>
+        <div id="ProjectScreenshots" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach (var image in Model.Images)
+                {
+                    <div class="carousel-item">
+                        <img src="@image.ImageData" class="d-block w-100" alt="@image.AltText"/>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>@image.Title</h5>
+                            <p>@image.Description</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
         <div class="card">
             <div class="card-header">
                 Project Description
             </div>
             <div class="card-body">
                 @Html.Raw(Model.FormattedDescription)
+            </div>
+            <div class="card-footer">
+                @if (!Model.SourceLink.IsNullOrWhitespace())
+                {
+                    <a target="_blank" href="@Model.SourceLink" class="btn btn-primary">Source Code</a>
+                }
+                @if (!Model.DemoLink.IsNullOrWhitespace())
+                {
+                    <a target="_blank" href="@Model.DemoLink" class="btn btn-success">Project Demo</a>
+                }
             </div>
         </div>
     </div>
